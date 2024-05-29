@@ -1,24 +1,48 @@
 import Link from "next/link";
 import RemoveBtn from "../removeButton/removeButton";
+import { sendStatusCode } from "next/dist/server/api-utils";
 
-export default function UserList() {
+
+//primeiro, criamos uma funcao assincrona para puxar todos os usuarios do banco de dados e retornar para o front
+const GetUsers = async () => {
+    try {
+        const res = await fetch(`http://localhost:3000/api/users/*` , {cache: "no-store"});
+        console.log(res);
+        if(!res.ok){
+            throw new Error(`Erro ao buscar usuários: ${res.status}`);
+        }
+
+        return res.json();
+
+    } catch (error) {
+    console.log(error + error.message + error.status(500));        
+    }
+}
+
+export default async function UserList() {
+
+    //mapeando a resposta para ser impressa em uma div
+    const users = await GetUsers();
+
     return (
-        <>
-            <div className="flex flex-row border border-slate-800 rounded-lg content-between justify-between p-4 max-w-3xl items-center m-auto mt-2">
-                <div className="flex flex-col pl-2">
-                    <h3 className="font-bold text-lg">Nome do Usuário</h3>
-                    <p>email do usuário</p>
+        <>  
+             {users.map(user => (
+                <div className="flex flex-row border text-white border-slate-800 rounded-lg content-between justify-between p-4 max-w-3xl items-center m-auto mt-2">
+                    <div className="flex flex-col pl-2">
+                        <h3 className="font-bold text-lg">{user.username}</h3>
+                        <p>{user.usermail}</p>
+                    </div>
+
+                    <div className="flex flex-row gap-3 pr-3">
+                        <RemoveBtn />
+
+                        <Link className="border border-slate-400 px-6 p-4 rounded-lg" href={`/pages/EditUser/${user._id}`}>
+                            Editar
+                        </Link>
+                    </div>
                 </div>
-
-                <div className="flex flex-row gap-3 pr-3">
-                    <RemoveBtn />
-
-                    <Link className="border border-slate-400 px-6 p-4 rounded-lg" href={"/pages/EditUser/123"}>
-                        Editar
-                    </Link>
-                </div>
-
-            </div>
+            ))} 
+            
         </>
     );
 }
