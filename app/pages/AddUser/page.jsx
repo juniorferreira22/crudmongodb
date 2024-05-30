@@ -11,20 +11,21 @@ export default function AddUser() {
 
     const HandleSubmit = async (e) => {
         e.preventDefault();
-
+    // se nao existir usuario ou email preenchidos, retorna um alerta.
     if(!username || !usermail){
         alert('Preencha todos os campos')
         return;
     }
 
-
+    // utilizando o metodo post para enviar os dados dos campos preenchidos para a API criada
     try {
-        const res = await fetch('http://localhost:3000/api/users/post/', {
+        const res = fetch('http://localhost:3000/api/users/post/', {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, usermail })
         })
-    if (res.ok){
+        
+    if (res){
         alert('Usuário cadastrado com sucesso!');
         router.push('/');
     }
