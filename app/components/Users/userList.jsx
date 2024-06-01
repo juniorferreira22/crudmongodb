@@ -7,7 +7,7 @@ import { sendStatusCode } from "next/dist/server/api-utils";
 const GetUsers = async () => {
     try {
         const res = await fetch(`http://localhost:3000/api/users/*`, { cache: "no-store" });
-        console.log(res);
+        console.log('users fetched successfully');
         if (!res.ok) {
             throw new Error(`Erro ao buscar usuários: ${res.status}`);
         }
