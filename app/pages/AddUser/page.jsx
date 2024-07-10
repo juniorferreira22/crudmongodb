@@ -28,6 +28,7 @@ export default function AddUser() {
     if (res){
         alert('Usuário cadastrado com sucesso!');
         router.push('/');
+        router.refresh();
     }
     } catch (error) {
         throw new Error('erro ao criar usuario');

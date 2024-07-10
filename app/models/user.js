@@ -3,9 +3,9 @@ import mongoose, { Schema } from "mongoose";
 
 // criando um novo schema para estabelecer um padrao nas queries
 const userSchema = new Schema({ 
+    id: String, 
     username: String, 
     usermail: String, 
-    password: String
 }, { 
 
     // utilizando o timestamp para que se veja a data e hora que os dados foram criados e atualizados

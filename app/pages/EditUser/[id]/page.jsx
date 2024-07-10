@@ -1,10 +1,14 @@
 'use client'
 
-import EditTopicForm from "@/app/components/EditTopicForm/EditTopic";
+import EditUserForm from "@/app/components/EditUserForm/EditUser";
+import { useParams } from "next/navigation";
 
-export default async function EditUser() {
-
+export default function EditUser() {
+    // obtendo o id do usuario a ser editado via query params
+    const params = useParams();
+    const { id } = params;
+    
     return (
-        <EditTopicForm />
+        <EditUserForm id={id} />
     )
 }

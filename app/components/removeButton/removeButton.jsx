@@ -12,7 +12,7 @@ export default async function RemoveBtn({id}){
         // se a confirmacao for aceita, ele envia a query para a API com o metodo DELETE, passando o ID do usuario como parametro
         if (confirmation) {
             const res = await fetch(`http://localhost:3000/api/users/delete/?id=${id}`, {method: 'DELETE'});
-            console.log(id);
+            console.log("user deleted succesfully! ID: " + id);
 
             // se houver o fetch do banco de dados, retorna um alerta e a pagina recarrega sozinha. 
             if (res.ok) {
@@ -20,7 +20,7 @@ export default async function RemoveBtn({id}){
                 router.refresh();
             }
             if(!res.ok) {
-            alert('Exclusão abortada.');
+                alert('Exclusão abortada.');
             }
         }
         else {

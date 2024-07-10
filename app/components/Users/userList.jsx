@@ -1,12 +1,11 @@
 import Link from "next/link";
 import RemoveBtn from "../removeButton/removeButton";
-import { sendStatusCode } from "next/dist/server/api-utils";
 
 
 //primeiro, criamos uma funcao assincrona para puxar todos os usuarios do banco de dados e retornar para o front
 const GetUsers = async () => {
     try {
-        const res = await fetch(`http://localhost:3000/api/users/*`, { cache: "no-store" });
+        const res = await fetch(`http://localhost:3000/api/users/get/`, { cache: "no-store" }, {method: "GET"});
         console.log('users fetched successfully');
         if (!res.ok) {
             throw new Error(`Erro ao buscar usuários: ${res.status}`);
